@@ -41,8 +41,8 @@ namespace SoftwareTeamXiangQi
                     if (FristButton == null || FristButton.Background == Brushes.Transparent)
                         MessageBox.Show("You don't chose any chess");
                     else{
-                        MainWindow.CleanHint();
-                        MainWindow.board.model = play_model.origin_chess;                       
+                        GameWindow.CleanHint();
+                        GameWindow.board.model = play_model.origin_chess;                       
                     }
                     break;
                 case "悔棋": 
@@ -50,32 +50,30 @@ namespace SoftwareTeamXiangQi
                         MessageBox.Show("You don't move any chess");
                     else
                     {
-                        int origin_row = MainWindow.buttons.IndexOf(SecondButton) / 9;
-                        int origin_col = MainWindow.buttons.IndexOf(SecondButton) % 9;
-                        int destation_row = MainWindow.buttons.IndexOf(FristButton) / 9;
-                        int destation_col = MainWindow.buttons.IndexOf(FristButton) % 9;
+                        int origin_row = GameWindow.buttons.IndexOf(SecondButton) / 9;
+                        int origin_col = GameWindow.buttons.IndexOf(SecondButton) % 9;
+                        int destation_row = GameWindow.buttons.IndexOf(FristButton) / 9;
+                        int destation_col = GameWindow.buttons.IndexOf(FristButton) % 9;
 
-                        MainWindow.board.chesses[origin_row, origin_col].MoveChess(origin_row, origin_col, destation_row, destation_col);
+                        GameWindow.board.chesses[origin_row, origin_col].MoveChess(origin_row, origin_col, destation_row, destation_col);
                         FristButton.Background = SecondButton.Background;
                         SecondButton.Background = record.Item2;
                         if (record.Item2 != Brushes.Transparent)
-                            MainWindow.board.chesses[origin_row, origin_col] = record.Item1;
+                            GameWindow.board.chesses[origin_row, origin_col] = record.Item1;
 
-                        MainWindow.board.Turn(MainWindow.board.turn);
+                        GameWindow.board.Turn(GameWindow.board.turn);
                         SecondButton = null;
 
                     }
                     break;
                 case "提示":
-                    MainWindow.hint = !MainWindow.hint;
-                    if (MainWindow.hint)
-                        ((Button)sender).Content = "取消提示";
+                    GameWindow.hint = !GameWindow.hint;
+                    if (GameWindow.hint)
+                        ((Button)sender).Content = "取消提示 / Clean hint";
                     else
-                        ((Button)sender).Content = "提示";
+                        ((Button)sender).Content = "提示 / Hint";
                     break;
-                case "退出":
-                    System.Envionment.Exit(0);
-                    break;
+                
             }
 
 
@@ -83,40 +81,40 @@ namespace SoftwareTeamXiangQi
         public static void normalClick(int row, int col, object sender) {
             try
             {
-                switch (MainWindow.board.model)
+                switch (GameWindow.board.model)
                 {
                     case play_model.origin_chess:
                         finish = false;
-                        MainWindow.board.selectChess(row, col);
+                        GameWindow.board.selectChess(row, col);
                         selectRow = row;
                         selectCol = col;
-                        MainWindow.Hint(selectRow, selectCol);
+                        GameWindow.Hint(selectRow, selectCol);
                         FristButton = (Button)sender;
                         break;
                     case play_model.destination:
-                        if (MainWindow.board.chesses[row, col] != null && MainWindow.board.chesses[row, col].color == MainWindow.board.turn)
+                        if (GameWindow.board.chesses[row, col] != null && GameWindow.board.chesses[row, col].color == GameWindow.board.turn)
                             throw new Exception("You can't choose the same color chess");
 
-                        if (MainWindow.board.chesses[selectRow, selectCol].CheckValidMove(row, col))
+                        if (GameWindow.board.chesses[selectRow, selectCol].CheckValidMove(row, col))
                         {
-                            if (MainWindow.board.chesses[row, col] != null && MainWindow.board.chesses[row, col].Print == "将")
+                            if (GameWindow.board.chesses[row, col] != null && GameWindow.board.chesses[row, col].Print == "将")
                             {
-                                    MainWindow.fail = true;
+                                    GameWindow.fail = true;
                             }
                             SecondButton = (Button)sender;
                             if(SecondButton.Background != Brushes.Transparent)
                             {
-                                record.Item1 = MainWindow.board.chesses[row, col];
+                                record.Item1 = GameWindow.board.chesses[row, col];
                                 record.Item2 = SecondButton.Background;
                             }
                             else
                                 record.Item2 = Brushes.Transparent;
-                            MainWindow.board.chesses[selectRow, selectCol].MoveChess(selectRow, selectCol, row, col);
+                            GameWindow.board.chesses[selectRow, selectCol].MoveChess(selectRow, selectCol, row, col);
                             SecondButton.Background = FristButton.Background;
                             FristButton.Background = Brushes.Transparent;
-                            MainWindow.CleanHint();
-                            MainWindow.board.model = play_model.origin_chess;
-                            MainWindow.board.Turn(MainWindow.board.turn);
+                            GameWindow.CleanHint();
+                            GameWindow.board.model = play_model.origin_chess;
+                            GameWindow.board.Turn(GameWindow.board.turn);
                             finish = true;
                         }
                         break;
@@ -127,8 +125,8 @@ namespace SoftwareTeamXiangQi
                 MessageBox.Show(e.Message);
             }
 
-            if (MainWindow.fail)
-                MessageBox.Show(MainWindow.board.chesses[row, col].color.ToString() + " Win!");
+            if (GameWindow.fail)
+                MessageBox.Show(GameWindow.board.chesses[row, col].color.ToString() + " Win!");
         }
     }
 }

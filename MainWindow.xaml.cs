@@ -20,145 +20,30 @@ namespace SoftwareTeamXiangQi
     /// </summary>
     public partial class MainWindow : Window
     {       
-        public static Board board = new Board();
-        public static Boolean fail = false;
-        public static Boolean hint = false;
-        public static List<Button> buttons = new List<Button>();
-        public void CreateGrid()
-        {
-            for (int row = 0; row < 10; row++)
-            {
-                for (int col = 0; col < 9; col++)
-                {
-                    Button button = new Button();
-
-              
-                    if (board.chesses[row, col] != null)
-                    {
-                        button.Background = Button_Background(board.chesses[row, col]);
-                    }
-                    else
-                        button.Background = Brushes.Transparent; //button背景透明色
-
-                    button.Click += new RoutedEventHandler(this.Button_Click);
-                    //button.Background = Brushes.Transparent; //button背景透明色
-                    button.BorderBrush = Brushes.Transparent;//button边框透明
-                    button.Width = 80;
-                    button.Height = 80;
-
-                    Grid.SetRow(button, row);
-                    Grid.SetColumn(button, col);
-                    XiangqiGrid.Children.Add(button);
-                    buttons.Add(button);//ButtonList
-                }
-            }
-        }
-
-        private ImageBrush  Button_Background(Chess chess)
-        {
-            ImageBrush brush = new ImageBrush();
-            String source = "Resources/";
-
-            if (chess.color == Color.red)
-                source += "red";
-            else
-                source += "black";
-
-            
-            switch (chess.Print)
-            {
-                case "兵":
-                   source += "Soilder.png";
-                    break;
-                case "炮":
-                    source += "Cannon.png";
-                    break;
-                case "车":
-                    source += "Rook.png";
-                    break;
-                case "马":
-                    source += "Horse.png";
-                    break;
-                case "象":
-                    source += "Elephant.png";
-                    break;
-                case "士":
-                    source += "Guard.png";
-                    break;
-                case "将":
-                    source += "King.png";
-                    break;
-            }
-            brush.ImageSource = new BitmapImage(new Uri(source, UriKind.Relative));
-            return brush;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            int btnRow = buttons.IndexOf((Button)sender)/9;
-            int btnCol = buttons.IndexOf((Button)sender)%9;
-            if (fail)
-            {
-                MessageBox.Show("        "+board.turn.ToString() + " Fail\n" + "The game is over!");
-            }
-            else
-            {
-                HandClick.HandleClick(btnRow, btnCol, sender);
-                if (board.turn == Color.red)
-                {
-                    label1.Foreground = Brushes.Red;
-                    label1.Content = "红方";
-                }
-                else
-                {
-                    label1.Foreground = Brushes.Black;
-                    label1.Content = "黑方";
-                }
-
-                if (board.model == play_model.origin_chess)
-                {
-                    label2.Content = "选棋";
-                }
-                else 
-                {
-                    label2.Content = "落棋";
-                }
-            }            
-        }
-
-
-        public static  void Hint( int ROW, int COL ){
-            if (hint)
-            {
-                for (int row = 0; row < 10; row++)
-                {
-                    for (int col = 0; col < 9; col++)
-                    {
-                        if (board.chesses[row, col] == null || board.chesses[ROW, COL].color != board.chesses[row, col].color)
-                        {
-                            if (board.chesses[ROW, COL].CheckValidMove(row, col))
-                            {
-                                buttons[row * 9 + col].BorderBrush = Brushes.Black;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        public static void CleanHint()
-        {
-            for (int row = 0; row < 10; row++){
-                for (int col = 0; col < 9; col++){
-                    if (buttons[row * 9 + col].BorderBrush == Brushes.Black)
-                        buttons[row * 9 + col].BorderBrush = Brushes.Transparent;
-                }
-            }
-        }
+        
         public MainWindow()
         {
             InitializeComponent();
-            CreateGrid();
+            Media.Source = new Uri(Environment.CurrentDirectory + "\\start.mp3");
+            Media.Play();
+        }
+
+        public void Click(object sender, RoutedEventArgs e)
+        { 
+            switch (((Button)sender).Name)
+            {
+                case "开始游戏":
+                    GameWindow gameWindow = new GameWindow();   //实例化
+                    gameWindow.Show();
+                    gameWindow.Left = 0;
+                    gameWindow.Top = 0;
+                    this.Close();  //关闭当前页面
+                    break;
+                case "退出":
+                    this.Close();
+                    break;
+            }
+
         }
     }
 

@@ -17,11 +17,15 @@
   <ItemGroup>
     <None Remove="background.jpg" />
     <None Remove="bg.png" />
+    <None Remove="startbackground .jpg" />
+    <None Remove="title.png" />
     <None Remove="棋盘.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="background.jpg" />
+    <Resource Include="startbackground .jpg" />
+    <Resource Include="title.png" />
   </ItemGroup>
 
 </Project>
