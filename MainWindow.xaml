@@ -5,57 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoftwareTeamXiangQi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="820" Width="1000">
-    <StackPanel Orientation="Horizontal" >
-        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-            <TextBlock FontSize="40" Text="XiangQi" Margin="0,300,0,20"/>
-            <TextBlock FontSize="40" Text="Game"/>
+        Title="MainWindow" Height="830" Width="1600"
+        Left="0" Top="0"
+        >
+
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="Style1">
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8" Name="PART_Background">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                    <GradientStop Color="White" Offset="0.0" />
+                                    <GradientStop Color="Silver" Offset="0.5" />
+                                    <GradientStop Color="White" Offset="0.0" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="PART_Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="Silver" Offset="0.0" />
+                                            <GradientStop Color="White" Offset="0.5" />
+                                            <GradientStop Color="Silver" Offset="0.0" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="10" Color="Black" Direction="0" Opacity="0.6" RenderingBias="Performance" ShadowDepth="0" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/startbackground .jpg"/>
+        </Grid.Background>
+
+        <MediaElement x:Name="Media" Visibility="Hidden" LoadedBehavior="Manual"  Source="start.mp3"/>
+        
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <StackPanel   Width="400" Height="200">
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/title.png"/>
+                </StackPanel.Background>
+            </StackPanel>
+
+            <Button Name="开始游戏" Content="开始游戏 / Play Game" FontSize="32" Width="350" Height="50" Margin="0,20,0,20" Click="Click" Style="{StaticResource Style1}"></Button>
+            <Button Name="退出" Content="退出 / Exit" FontSize="32" Width="200" Height="50" Margin="0,20,0,20" Click="Click" Style="{StaticResource Style1}"></Button>
+
         </StackPanel>
 
 
-        <Grid x:Name="XiangqiGrid" Height="800" Width="720" HorizontalAlignment="Center" Margin="10,0,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid.Background>
-                <ImageBrush ImageSource ="/background.jpg" Stretch="Fill"/>
-            </Grid.Background>
-        </Grid>
-
-        <StackPanel Orientation="Vertical" Margin="10,80,0,0">
-            <Label  Content="回合方" Margin="0,0,0,10" FontSize="24"  HorizontalAlignment="Center"/>
-            <Label x:Name="label1" Content="红方" Foreground="Red" Margin="0,0,0,10" FontSize="24" HorizontalAlignment="Center"/>
-            <Label  Content="模式" Margin="0,80,0,0" FontSize="24" HorizontalAlignment="Center"/>
-            <Label x:Name="label2" Content="选棋" Margin="0,0,0,10" FontSize="24" HorizontalAlignment="Center"/>
-            <Button x:Name="换棋" Content="换棋" Width="60" Height="50" Click="Button_Click" Margin="0,100,0,30" Visibility="Visible"/>
-            <Button x:Name="悔棋" Content="悔棋" Width="60" Height="50" Click="Button_Click" Margin="0,0,0,30"/>
-            <Button x:Name="提示" Content="提示" Width="60" Height="50" Click="Button_Click" Margin="0,0,0,70" Visibility="Visible"/>
-            <Button x:Name="退出" Content="退出" Width="60" Height="50" Click="Button_Click"/>
-
-        </StackPanel>
-    </StackPanel>
-
-
+    </Grid>
 
 </Window>

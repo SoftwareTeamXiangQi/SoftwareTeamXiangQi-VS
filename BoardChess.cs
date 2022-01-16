@@ -148,7 +148,7 @@ namespace SoftwareTeamXiangQi
                     if(this.color == Color.red)
                         valid = true;
                 }
-                if (!MainWindow.hint)
+                if (!GameWindow.hint)
                 {
                     if (valid == false)
                     {
@@ -161,7 +161,7 @@ namespace SoftwareTeamXiangQi
             }
             else{
             valid = false;
-                if(!MainWindow.hint)
+                if(!GameWindow.hint)
                     throw new Exception("You just can move one space.");
             }
             return valid;                         
@@ -198,13 +198,13 @@ namespace SoftwareTeamXiangQi
                 }
                 else{
                     valid = false;
-                    if (!MainWindow.hint)
+                    if (!GameWindow.hint)
                         throw new Exception("Your cannon is stuck.");
                 }
             }
             else{
                 valid = false;
-                if (!MainWindow.hint) 
+                if (!GameWindow.hint) 
                     throw new Exception("The cannon only can move straight or sideways.");
             }
             return valid;                            
@@ -245,7 +245,7 @@ namespace SoftwareTeamXiangQi
                 }
                 else{//其他情况，不能走
                     valid = false;
-                    if (!MainWindow.hint) 
+                    if (!GameWindow.hint) 
                         throw new Exception("Your Rook is stuck.");
                 }
             }
@@ -264,7 +264,7 @@ namespace SoftwareTeamXiangQi
             if( rowAbs == 1 && colAbs == 2){ //横着走
                 if( board.chesses[this.row,(this.col+destinationColumn)/2] != null){ //有棋
                     valid = false;
-                    if (!MainWindow.hint) 
+                    if (!GameWindow.hint) 
                         throw new Exception("Your Horse is stuck.");
                 }   
                 else{
@@ -274,7 +274,7 @@ namespace SoftwareTeamXiangQi
             else if(colAbs==1 && rowAbs == 2){ //竖着走
                 if( board.chesses[(this.row+destinationRow)/2,this.col] != null){ //有棋
                     valid = false;
-                    if (!MainWindow.hint) 
+                    if (!GameWindow.hint) 
                         throw new Exception("Your Horse is stuck.");    
                 }
                 else{
@@ -283,7 +283,7 @@ namespace SoftwareTeamXiangQi
             } 
             else{
                 valid = false;
-                if (!MainWindow.hint) 
+                if (!GameWindow.hint) 
                     throw new Exception("You should walk as a 日.");                 
             }//红黑马end
             return valid;                            
@@ -300,7 +300,7 @@ namespace SoftwareTeamXiangQi
                 if((destinationRow>4 && board.chesses[row,col].color == Color.red) //红象过河
                   || (destinationRow<5 && board.chesses[row,col].color == Color.black)){//黑象过河
                     valid = false;
-                    if (!MainWindow.hint) 
+                    if (!GameWindow.hint) 
                         throw new Exception("Your elephant can't cross the river.");
                 }
                 else{
@@ -308,7 +308,7 @@ namespace SoftwareTeamXiangQi
                                 
                         if(board.chesses[(this.row+destinationRow)/2,(this.col+destinationColumn)/2] != null){//绊脚
                                 valid = false;
-                            if (!MainWindow.hint) 
+                            if (!GameWindow.hint) 
                                 throw new Exception("Your elephant is stuck.");
                         }
                         else { valid = true; }
@@ -317,7 +317,7 @@ namespace SoftwareTeamXiangQi
             }
             else{
                 valid = false;
-                if (!MainWindow.hint) 
+                if (!GameWindow.hint) 
                     throw new Exception("The elepant only can move two squares.");
             }
             return valid;                            
@@ -337,19 +337,19 @@ namespace SoftwareTeamXiangQi
                         }
                         else{
                             valid = false;
-                            if (!MainWindow.hint) 
+                            if (!GameWindow.hint) 
                                 throw new Exception("You only can walk diagonally one space.");
                     }
                     }
                     else{
                         valid = false;
-                        if (!MainWindow.hint)
+                        if (!GameWindow.hint)
                             throw new Exception("Sorry, you have to walk diagonally.");
                 }
                 }
                 else{
                     valid = false;
-                    if (!MainWindow.hint)
+                    if (!GameWindow.hint)
                         throw new Exception("Sorry, you only can move in the 米 space.");
                 }          
                 return valid;                              
@@ -381,14 +381,15 @@ namespace SoftwareTeamXiangQi
                         else
                             valid = false;
                         if( valid == false){// 有棋退出
-                            if (!MainWindow.hint) 
+                            if (!GameWindow.hint) 
                                 throw new Exception("Sorry, you only can not eat the King.There is at least one chess between two Kings.");
+                            break;
                         }                                   
                     }
                 }
                 else{//两将不同列
                     valid = false;
-                    if (!MainWindow.hint) 
+                    if (!GameWindow.hint) 
                         throw new Exception("Sorry, you can not eat the King. You are not in same coloumn.");
                 }
             }
@@ -399,13 +400,13 @@ namespace SoftwareTeamXiangQi
                         valid = true;
                     else{
                         valid = false;
-                        if (!MainWindow.hint) 
+                        if (!GameWindow.hint) 
                             throw new Exception("Sorry, you only can walk one space.");
                     }
                 }
                 else{
                     valid = false;
-                    if (!MainWindow.hint) 
+                    if (!GameWindow.hint) 
                         throw new Exception("Sorry, you only can move in the 米 space.");
                 }
             }

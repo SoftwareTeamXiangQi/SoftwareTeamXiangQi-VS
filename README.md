@@ -1,0 +1,2 @@
+# SoftwareTeamXiangQi-VS
+VS version
