@@ -361,15 +361,12 @@ namespace SoftwareTeamXiangQi
         public King(int row,int col,Color color,Type type,Board board) : base(row,col,color,type,"将",board){}
         public override bool CheckValidMove(int destinationRow, int destinationColumn){
             bool king_flag  = false;  
-            if(board.chesses[destinationRow,destinationColumn] == null){ //目标为空，不进入将吃将
-                king_flag = false;
-            }
-            else{ 
-                if(board.chesses[destinationRow,destinationColumn].type == Type.King) //目标为将，进入将吃将
-                    king_flag = true;
-                else //目标不为将，不进入将吃将
+            if(board.chesses[destinationRow,destinationColumn] != null && 
+               board.chesses[destinationRow, destinationColumn].type == Type.King)
+                king_flag = true;
+            else //目标不为将，不进入将吃将
                     king_flag = false;
-            }
+            
 
             if(king_flag){  // 将吃将（目标为将）
                 if(this.col == destinationColumn){//两将同一列
@@ -395,7 +392,7 @@ namespace SoftwareTeamXiangQi
             }
             else{ //在米格里
             int AbsRowAndCol =  Math.Abs(this.row - destinationRow) + Math.Abs(this.col - destinationColumn);
-                if(destinationColumn > 2 && destinationColumn < 6){    // 米格 Col ： [3,5]
+                if(destinationColumn > 2 && destinationColumn < 6 && (destinationRow < 3 || destinationRow > 6)){    // 米格 Col ： [3,5]
                     if( AbsRowAndCol == 1 )
                         valid = true;
                     else{
