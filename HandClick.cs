@@ -14,7 +14,7 @@ namespace SoftwareTeamXiangQi
         public static int selectRow;
         public static int selectCol;
         public static bool finish = false;
-        public static bool eat_music = false;
+        public static bool eat_music = false;  
         public static Button? FristButton,SecondButton;
         public static ValueTuple<Chess,Brush> record;
 
@@ -65,7 +65,7 @@ namespace SoftwareTeamXiangQi
 
                         GameWindow.board.Turn(GameWindow.board.turn);
                         SecondButton = null;
-                        eat_music = true;
+                        eat_music = true;   //开启下棋声
                     }
                     break;
                 case "提示":
@@ -125,7 +125,7 @@ namespace SoftwareTeamXiangQi
                                 GameWindow.board.Turn(GameWindow.board.turn);
                             }
                             finish = true;
-                            eat_music = true;
+                            eat_music = true;  //开启下棋声
                         }
                         break;
                 }

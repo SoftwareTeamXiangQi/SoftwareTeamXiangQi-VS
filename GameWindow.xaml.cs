@@ -30,7 +30,7 @@ namespace SoftwareTeamXiangQi
             Music.Source = new Uri(Environment.CurrentDirectory + "\\game.mp3");
             FM.Source = new Uri(Environment.CurrentDirectory + "\\fail.mp3");
             MoveSound.Source = new Uri(Environment.CurrentDirectory + "\\move.wav");
-            Music.Play();
+            Music.Play(); // 开启背景音乐
         }
 
         public static Board board = new Board();
@@ -124,7 +124,7 @@ namespace SoftwareTeamXiangQi
                 {
                     HandClick.HandleClick(sender);
 
-                    if (HandClick.eat_music)
+                    if (HandClick.eat_music)   //下棋声
                     {
                             MoveSound.Play();
                             Delay(250);
