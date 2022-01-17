@@ -33,6 +33,8 @@
             <ImageBrush ImageSource="/startbackground .jpg"/>
         </StackPanel.Background>
         <MediaElement x:Name="Music" Visibility="Hidden" LoadedBehavior="Manual"  Source="game.mp3"/>
+        <MediaElement x:Name="FM" Visibility="Hidden" LoadedBehavior="Manual"  Source="fail.mp3"/>
+        <MediaElement x:Name="MoveSound" Visibility="Hidden" LoadedBehavior="Manual"  Source="move.wav"/>
         <StackPanel Orientation="Vertical" Margin="10,0,0,0">
 
             <TextBlock FontSize="45" Text="  XiangQi Game  " Margin="0,300,0,20"/>

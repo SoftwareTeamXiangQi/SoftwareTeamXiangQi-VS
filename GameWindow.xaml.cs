@@ -28,13 +28,15 @@ namespace SoftwareTeamXiangQi
             buttons = new List<Button>();
             CreateGrid();
             Music.Source = new Uri(Environment.CurrentDirectory + "\\game.mp3");
+            FM.Source = new Uri(Environment.CurrentDirectory + "\\fail.mp3");
+            MoveSound.Source = new Uri(Environment.CurrentDirectory + "\\move.wav");
             Music.Play();
         }
 
         public static Board board = new Board();
         public static Boolean fail = false;
         public static Boolean hint = false;
-        public static List<Button> buttons = new List<Button>();
+        public static List<Button> buttons = new List<Button>();        
         
         public void CreateGrid()
         {
@@ -53,7 +55,6 @@ namespace SoftwareTeamXiangQi
                         button.Background = Brushes.Transparent; //button背景透明色
 
                     button.Click += new RoutedEventHandler(this.Button_Click);
-                    //button.Background = Brushes.Transparent; //button背景透明色
                     button.BorderBrush = Brushes.Transparent;//button边框透明
                     button.Width = 80;
                     button.Height = 80;
@@ -107,9 +108,6 @@ namespace SoftwareTeamXiangQi
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int btnRow = buttons.IndexOf((Button)sender) / 9;
-            int btnCol = buttons.IndexOf((Button)sender) % 9;
-
             if (((Button)sender).Name == "退出")
             {
                 MainWindow mainWindow = new MainWindow();//实例化 开始界面
@@ -120,35 +118,65 @@ namespace SoftwareTeamXiangQi
             {
                 if (fail)
                 {
-                    MessageBox.Show("        " + board.turn.ToString() + " Fail\n" + "The game is over!");
+                    MessageBox.Show("        " + board.turn.ToString() + " Win!\n" + "The game is over!");
                 }
                 else
                 {
-                    HandClick.HandleClick(btnRow, btnCol, sender);
-                    if (board.turn == Color.red)
+                    HandClick.HandleClick(sender);
+
+                    if (HandClick.eat_music)
                     {
-                        label1.Foreground = Brushes.Red;
-                        label1.Content = "红方 / Red Player";
-                    }
-                    else
-                    {
-                        label1.Foreground = Brushes.Black;
-                        label1.Content = "黑方 / Black Player";
+                            MoveSound.Play();
+                            Delay(250);
+                            MoveSound.Stop();
                     }
 
-                    if (board.model == play_model.origin_chess)
+
+                    if (fail)
                     {
-                        label2.Content = "选棋 / Choose chess";
+                        Music.Stop();
+                        FM.Play();
+                        MessageBox.Show(board.turn.ToString() + " Win!");
                     }
                     else
                     {
-                        label2.Content = "落棋 / Choose position";
+                        if (board.turn == Color.red)
+                        {
+                            label1.Foreground = Brushes.Red;
+                            label1.Content = "红方 / Red Player";
+                        }
+                        else
+                        {
+                            label1.Foreground = Brushes.Black;
+                            label1.Content = "黑方 / Black Player";
+                        }
+
+                        if (board.model == play_model.origin_chess)
+                        {
+                            label2.Content = "选棋 / Choose chess";
+                        }
+                        else
+                        {
+                            label2.Content = "落棋 / Choose position";
+                        }
                     }
+
                 }
             }
-            
-        }
 
+        }
+     
+        public void Delay(double delayTime)
+        {
+            DateTime now = DateTime.Now;
+            double s;
+            do
+            {
+                TimeSpan spand = DateTime.Now - now;
+                s = spand.Milliseconds;  //Milliseconds是指以毫秒计数
+            }
+            while (s < delayTime);
+        }
 
         public static void Hint(int ROW, int COL)
         {

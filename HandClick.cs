@@ -8,33 +8,35 @@ using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace SoftwareTeamXiangQi
-{
+{ 
     internal class HandClick
     { 
         public static int selectRow;
         public static int selectCol;
         public static bool finish = false;
+        public static bool eat_music = false;
         public static Button? FristButton,SecondButton;
         public static ValueTuple<Chess,Brush> record;
 
 
-        public static void HandleClick(int row, int col, object sender)
+        public static void HandleClick(object sender)
         {
+            eat_music = false;
             switch (((Button)sender).Name)
             {
                 case "悔棋":
                 case "换棋":
                 case "提示":
                 case "退出":
-                    specialClick(row, col, sender);
+                    specialClick(sender);
                     break;
                 default:
-                    normalClick(row, col, sender);
+                    normalClick(sender);
                     break;
             }
         }
 
-        public static void specialClick(int row, int col, object sender){
+        public static void specialClick(object sender){
             switch (((Button)sender).Name)
             {
                 case "换棋":
@@ -63,7 +65,7 @@ namespace SoftwareTeamXiangQi
 
                         GameWindow.board.Turn(GameWindow.board.turn);
                         SecondButton = null;
-
+                        eat_music = true;
                     }
                     break;
                 case "提示":
@@ -78,7 +80,11 @@ namespace SoftwareTeamXiangQi
 
 
         }
-        public static void normalClick(int row, int col, object sender) {
+        public static void normalClick(object sender) {
+
+            int row = GameWindow.buttons.IndexOf((Button)sender) / 9;
+            int col = GameWindow.buttons.IndexOf((Button)sender) % 9;
+
             try
             {
                 switch (GameWindow.board.model)
@@ -113,9 +119,13 @@ namespace SoftwareTeamXiangQi
                             SecondButton.Background = FristButton.Background;
                             FristButton.Background = Brushes.Transparent;
                             GameWindow.CleanHint();
-                            GameWindow.board.model = play_model.origin_chess;
-                            GameWindow.board.Turn(GameWindow.board.turn);
+                            if (!GameWindow.fail)
+                            {
+                                GameWindow.board.model = play_model.origin_chess;
+                                GameWindow.board.Turn(GameWindow.board.turn);
+                            }
                             finish = true;
+                            eat_music = true;
                         }
                         break;
                 }
@@ -124,9 +134,7 @@ namespace SoftwareTeamXiangQi
             {
                 MessageBox.Show(e.Message);
             }
-
-            if (GameWindow.fail)
-                MessageBox.Show(GameWindow.board.chesses[row, col].color.ToString() + " Win!");
+                
         }
     }
 }
