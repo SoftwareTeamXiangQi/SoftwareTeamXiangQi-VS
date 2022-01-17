@@ -31,6 +31,7 @@ namespace SoftwareTeamXiangQi
             FM.Source = new Uri(Environment.CurrentDirectory + "\\fail.mp3");
             MoveSound.Source = new Uri(Environment.CurrentDirectory + "\\move.wav");
             Music.Play(); // 开启背景音乐
+            
         }
 
         public static Board board = new Board();

@@ -53,10 +53,10 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/startbackground .jpg"/>
+            <ImageBrush ImageSource="/startbackground .jpg" />
         </Grid.Background>
 
-        <MediaElement x:Name="Media" Visibility="Hidden" LoadedBehavior="Manual"  Source="start.mp3"/>
+        <MediaElement x:Name="Media" Visibility="Hidden" LoadedBehavior="Manual" Volume="0.1"  Source="start.mp3"/>
         
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" >
             <StackPanel   Width="400" Height="200">

@@ -32,13 +32,13 @@
         <StackPanel.Background>
             <ImageBrush ImageSource="/startbackground .jpg"/>
         </StackPanel.Background>
-        <MediaElement x:Name="Music" Visibility="Hidden" LoadedBehavior="Manual"  Source="game.mp3"/>
-        <MediaElement x:Name="FM" Visibility="Hidden" LoadedBehavior="Manual"  Source="fail.mp3"/>
-        <MediaElement x:Name="MoveSound" Visibility="Hidden" LoadedBehavior="Manual"  Source="move.wav"/>
+        <MediaElement x:Name="Music" Visibility="Hidden" LoadedBehavior="Manual"  Source="game.mp3" Volume="0.07"/>
+        <MediaElement x:Name="FM" Visibility="Hidden" LoadedBehavior="Manual"  Source="fail.mp3" Volume="0.5"/>
+        <MediaElement x:Name="MoveSound" Visibility="Hidden" LoadedBehavior="Manual"  Source="move.wav" Volume="2"/>
         <StackPanel Orientation="Vertical" Margin="10,0,0,0">
 
-            <TextBlock FontSize="45" Text="  XiangQi Game  " Margin="0,300,0,20"/>
-            <TextBlock FontSize="45" Text="象棋" HorizontalAlignment="Center"/>
+            <TextBlock FontSize="45" Text="  象棋  " Margin="0,300,0,20" HorizontalAlignment="Center"/>
+            <TextBlock FontSize="45" Text="  XiangQi Game  " />
         </StackPanel>
 
 
@@ -81,7 +81,7 @@
 
 
             <Button Name="换棋" Content=" 换棋 / Change Chess " FontSize="20"  Margin="0,100,0,30" Click="Button_Click" Style="{StaticResource rbtnStyle}"></Button>
-            <Button Name="悔棋" Content="  悔棋 / Repentance chess  " FontSize="20"  Margin="0,0,0,30" Click="Button_Click" Style="{StaticResource rbtnStyle}"></Button>
+            <Button Name="悔棋" Content="  悔棋 / Repentance Chess  " FontSize="20"  Margin="0,0,0,30" Click="Button_Click" Style="{StaticResource rbtnStyle}"></Button>
             <Button Name="提示" Content="提示 / Hint" FontSize="20"  Margin="0,0,0,70" Click="Button_Click" Style="{StaticResource rbtnStyle}"></Button>
 
             <Button x:Name="退出" Content="退出 / Exit" FontSize="20"  HorizontalAlignment="Center" Width="120" Height="30"  IsDefault="True" Click="Button_Click">
